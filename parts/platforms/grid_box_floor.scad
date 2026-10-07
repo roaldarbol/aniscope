@@ -1,7 +1,5 @@
 use <../core/core.scad>;
 use <../misc/misc.scad>;
-$fn = 30;
-grid_box_wall_basic();
 
 module grid_box_floor(
     magnet_spacing = 85,
@@ -28,19 +26,19 @@ module grid_box_floor(
 }
 
 module grid_box_wall_basic(
-    magnet_spacing = 85,
+    makerbeam_spacing = 85,
     box_height = 60,
     makerbeam = 10,
     wall_thickness = 2.5
 ) {
-    wall_width = magnet_spacing - 2 * 2; // mm
+    wall_width = makerbeam_spacing - 2 * 2; // mm
 
     cube([wall_width, box_height, wall_thickness], center = true);
 }
 
 
 module grid_box_wall_fan(
-    magnet_spacing = 85,
+    makerbeam_spacing = 85,
     box_height = 60,
     makerbeam = 10,
     wall_thickness = 2.5,
@@ -49,7 +47,7 @@ module grid_box_wall_fan(
     v_align = "top",    // "top", "center", "bottom"
     fan_margin = 0
 ) {
-    wall_width = magnet_spacing - 2 * 2;
+    wall_width = makerbeam_spacing - 2 * 2;
 
     // Fan holder outside dimensions (from fan_holder module)
     fe = 1;

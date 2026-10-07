@@ -47,7 +47,7 @@ glass_tube_dims = [20.5, 130];
 // Grid box height
 box_height = 50;
 // Grid box magnet spacing
-box_magnet_spacing = 85;
+box_magnet_spacing = 100;
 // Grid box panel thickness
 box_panel_thickness = 3;
 
@@ -201,7 +201,7 @@ module print_part() {
     } else if (part == "platform_grid") {
         platform_grid(
             dims = platform_dims, 
-            grid_spacing = 85,
+            grid_spacing = box_magnet_spacing,
             grid_layout = "2x2",
             magnet_dims = magnet_dims, 
             magnet_size = magnet_size_corrected,
@@ -262,7 +262,7 @@ module print_part() {
             makerbeam = makerbeam,
             wall_thick = 3,
             magnet_pos = adapter_magnet_orientation,
-            magnet_size = magnet_size, 
+            magnet_size = magnet_size_corrected, 
             adapter_magnet_dims = adapter_magnet_dims
         );
 	} else if (part=="adapter_neopixel") {
@@ -271,7 +271,7 @@ module print_part() {
             makerbeam=10,
             wall_thick=3,
             magnet_pos="bottom",
-            magnet_size = magnet_size, 
+            magnet_size = magnet_size_corrected, 
             adapter_magnet_dims = adapter_magnet_dims, 
             bolt_diam = 2.5,
             neopixel_diam = 60
@@ -279,7 +279,7 @@ module print_part() {
     } else if (part=="adapter_neopixel_lid") {
         adapter_neopixel_lid(
             lid_thickness,
-            magnet_size,
+            magnet_size = magnet_size_corrected,
             wall_thick
         );
     } else if (part=="tube_plug") {
@@ -302,150 +302,3 @@ module print_part() {
         );
     }
 }
-// sleep_preference_module($fn = 200);
-
-// platform_sleep_preference(
-//    dims = platform_dims,
-//    magnet_dims = magnet_dims,
-//    magnet_size = magnet_size,
-//    makerbeam = makerbeam,
-//    $fn = 200
-// );
-
-
-
-
-
-// Camera mount
-//color([0.3,0.3,0.3])    
-////translate([0,0,beam_height-1.25*dims[2]])
-//rotate([180,0,0])
-//ethoscope_x_mount(
-//    dims = magnet_dims,
-//    makerbeam = makerbeam,
-//    wall_thick = 6, 
-//    magnet_size = magnet_size, 
-//    standoff_dims = central_magnet_dims, 
-//    bolt_diam = Camera_screw,
-//    adapter_magnet_dims = adapter_magnet_dims, 
-//    lens_diam = lens_diam
-// );
- 
-// color([0.3,0.3,0.3])    
-//translate([0,0,beam_height-1.25*dims[2]])
-//rotate([180,0,0])
-//ethoscope_usb_cam_adapter(
-//    dims = magnet_dims,
-//    makerbeam = makerbeam,
-//    wall_thick = 3, 
-//    magnet_pos = "bottom",
-//    magnet_size = magnet_size, 
-//    standoff_dims = central_magnet_dims, 
-//    bolt_diam = 2.5,
-//    adapter_magnet_dims = adapter_magnet_dims, 
-//    lens_diam = lens_diam,
-//    pos_holes = pos_holes
-// );
- 
-//ethoscope_neopixel_adapter(
-//    dims = magnet_dims,
-//    makerbeam = makerbeam,
-//    wall_thick = 3, 
-//    magnet_pos = "bottom",
-//    magnet_size = magnet_size, 
-//    standoff_dims = central_magnet_dims, 
-//    bolt_diam = 2.5,
-//    neopixel_diam = 36.8 // 16: 44.5
-// );
- 
-// ethoscope_neopixel_adapter_lid(
-//    lid_thickness,
-//    magnet_size,
-//    wall_thick
-//);
-
-
-
-//// Light chamber
-//difference(){
-//    translate([0,0,light_chamber_dims[2]/2])
-//    color([1,1,1])
-//    ethoscope_end(
-//        dims = light_chamber_dims, 
-//        magnet_dims = magnet_dims, 
-//        makerbeam = makerbeam, 
-//        wall_thick = makerbeam-2, 
-//        magnet_size = magnet_size, 
-//        bolt_diam = primary_bolt, 
-//        with_floor = true,
-//        with_led=true,
-//        floor_thick = 2
-//    );
-////    translate([dims[0]/2-20,dims[1]/2-10,0])
-////    cube([30,30,100]);
-//    
-//    translate([light_chamber_dims[0]/2, light_chamber_dims[1]/2-20,10])
-//    rotate([90,90,90])
-//    #intersection(){
-//        cylinder(d=8.1, h=10, center=true);
-//        cube([7.1,8.1,10], center=true);
-//    }
-//}
-    
-
-
-//// platform
-//translate([0,0,light_chamber_dims[2]+5])
-//color([1,1,1])
-//platform_empty(
-//    dims = platform_dims, 
-//    magnet_dims = magnet_dims,
-//    magnet_size = magnet_size, 
-//    makerbeam = makerbeam
-//);
-////!platform_metabolic_chamber(
-////    dims = platform_dims, 
-////    magnet_dims = magnet_dims, 
-////    chamber_dims = chamber_dims,
-////    magnet_size = magnet_size, 
-////    makerbeam = makerbeam
-////);
-// platform_tubes(
-//    dims = platform_dims, 
-//    magnet_dims = magnet_dims, 
-//    magnet_size = magnet_size, 
-//    tube_dims = acrylic_tube_dims,
-//    makerbeam = makerbeam
-// );
-//
-//
-//// Makerbeams
-//color([0.6,0.6,0.6]){
-//for (i=[-1,1]){
-//    translate([dims[0]/2,i*dims[1]/2,beam_height/2])
-//    cube([makerbeam, makerbeam, beam_height], center=true);
-//}
-//mirror([1,0,0])
-//for (i=[-1,1]){
-//    translate([dims[0]/2,i*dims[1]/2,beam_height/2])
-//    cube([makerbeam, makerbeam, beam_height], center=true);
-//}
-//}
-
-// Tube inserts
-// translate([acrylic_tube_dims[2]/2,0,0])
-// rotate([0,-90,0])
-// tube_plug(
-//     hose_on_side = false, 
-//     inner_d = acrylic_tube_dims[0]-2*acrylic_tube_dims[1], 
-//     outer_d = acrylic_tube_dims[0], 
-//     magnet_size = magnet_size
-//     );
-
-// rotate([0,90,0])
-// translate([0,0,-12])
-// tube_floor(
-//     chamber_length = acrylic_tube_dims[2],
-//     inner_d1 = acrylic_tube_dims[0]-2*acrylic_tube_dims[1],
-//     inner_d2 = acrylic_tube_dims[0]-2*acrylic_tube_dims[1]
-//     );

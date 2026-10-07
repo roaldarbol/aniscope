@@ -103,7 +103,7 @@ module platform_grid(
             for (i = [0:grid_x-1]) {
                 for (j = [0:grid_y-1]) {
                     translate([offset_x + i*grid_spacing, offset_y + j*grid_spacing, 0])
-                        cylinder(h=magnet_size[1]+0.2, d=magnet_size[0]+0.4, $fn=32);
+                        cylinder(h=magnet_size[1], d=magnet_size[0]);
                 }
             }
         }
